@@ -1,0 +1,31 @@
+{
+  "name": "steamkeyweb",
+  "version": "0.1.0",
+  "description": "webpanel to share steam keys",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "user": "node ./technical/NewUser.js"
+  },
+  "keywords": [],
+  "author": "BolverBlitz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BolverBlitz/SteamkeyWebmanager"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "hyper-express": "^6.14.3",
+    "joi": "^17.5.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "dotenv-webpack": "^7.0.3",
+    "mocha": "^9.2.0",
+    "nodemon": "^2.0.4"
+  }
+}

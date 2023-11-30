@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title id="IndexTitle">Anime List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+            background-color: #6c6c6c;
+        }
+
+      #TableSearch {
+        background-color: #949494;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #444444;
+        margin-bottom: 12px;
+      }
+
+      #KeyTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #444444;
+        font-size: 18px;
+      }
+
+      #KeyTable th,
+      #KeyTable td {
+        text-align: left;
+        padding: 12px;
+      }
+
+      #KeyTable tr {
+        border-bottom: 1px solid #444444;
+      }
+
+      #KeyTable tr.header,
+      #KeyTable tr:hover {
+        background-color: #444444;
+      }
+
+      /* Dropdown Button */
+      .dropbtn {
+        background-color: #444444;
+        margin-bottom: 8px;
+        color: white;
+        padding: 8px;
+        font-size: 16px;
+        border: none;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #aaa7a7;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #ddd;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+
+      .dropdown:hover .dropbtn {
+        background-color: #aaa7a7;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Anime List</h2>
+
+    <input
+      type="text"
+      id="TableSearch"
+      onkeyup="search()"
+      placeholder="Search for names.."
+      title="Type in a name"
+    />
+
+    <div id="SearchOptions"></div>
+
+    <div id="Table"></div>
+    <script>
+      
+    </script>
+  </body>
+</html>
