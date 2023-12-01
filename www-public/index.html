@@ -135,7 +135,7 @@
               if(anime.language == "en") {
                 anime.language = "us";
               }
-              anime.language = `<span class="flag flag-${anime.language}"></span>`;
+              anime.language = `<span class="flag flag-country-${anime.language}"></span>`;
               tableHTML += `<tr><td>${anime.anime}</td><td>${anime.language}</td><td>${anime.season}</td><td>${anime.episodes}</td><td>${anime.average_rating}/100</td><td>${anime.watch_start}</td><td>${anime.watch_end}</td></tr>`;
             });
             tableHTML += "</table>";
