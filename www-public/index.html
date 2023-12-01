@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title id="IndexTitle">Anime List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/tabler_flags.css">
     <style>
       * {
         box-sizing: border-box;
@@ -23,25 +24,25 @@
         margin-bottom: 12px;
       }
 
-      #KeyTable {
+      #AnimeName {
         border-collapse: collapse;
         width: 100%;
         border: 1px solid #444444;
         font-size: 18px;
       }
 
-      #KeyTable th,
-      #KeyTable td {
+      #AnimeName th,
+      #AnimeName td {
         text-align: left;
         padding: 12px;
       }
 
-      #KeyTable tr {
+      #AnimeName tr {
         border-bottom: 1px solid #444444;
       }
 
-      #KeyTable tr.header,
-      #KeyTable tr:hover {
+      #AnimeName tr.header,
+      #AnimeName tr:hover {
         background-color: #444444;
       }
 
@@ -105,7 +106,61 @@
 
     <div id="Table"></div>
     <script>
-      
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadAnimeList();
+      });
+
+      const loadAnimeList = () => {
+        fetch("/api/v1/anime")
+          .then((response) => response.json())
+          .then((data) => {
+            let table = document.getElementById("Table");
+            // Create table with anime, language, season, episodes, avr rating, watch_start and watch_end
+            let tableHTML = `<table id="AnimeName">
+              <tr class="header">
+                <th style="width:35%;">Anime</th>
+                <th style="width:10%;">Language</th>
+                <th style="width:5%;">Season</th>
+                <th style="width:10%;">Episodes</th>
+                <th style="width:10%;">Average Rating</th>
+                <th style="width:10%;">Watch Start</th>
+                <th style="width:10%;">Watch End</th>
+              </tr>`;
+            data.forEach((anime) => {
+              const watch_start = new Date(anime.watch_start);
+              const watch_end = new Date(anime.watch_end);
+              anime.watch_start = watch_start.toLocaleDateString("de-DE");
+              anime.watch_end = watch_end.toLocaleDateString("de-DE");
+              // Use Tabler flags for language
+              if(anime.language == "en") {
+                anime.language = "us";
+              }
+              anime.language = `<span class="flag flag-${anime.language}"></span>`;
+              tableHTML += `<tr><td>${anime.anime}</td><td>${anime.language}</td><td>${anime.season}</td><td>${anime.episodes}</td><td>${anime.average_rating}/100</td><td>${anime.watch_start}</td><td>${anime.watch_end}</td></tr>`;
+            });
+            tableHTML += "</table>";
+            table.innerHTML = tableHTML;
+          });
+      }
+
+      const search = () => {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("TableSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("AnimeName");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1]; //Cullom ID of the table to search for
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
     </script>
   </body>
 </html>

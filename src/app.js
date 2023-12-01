@@ -12,8 +12,8 @@ app.use(expressCspHeader({
     directives: {
         'default-src': [SELF],
         'script-src': [SELF, INLINE],
-        'style-src': [SELF, INLINE, "https://rsms.me/inter/inter.css"],
-        'font-src': [SELF, "https://rsms.me/inter/font-files/"],
+        'style-src': [SELF, INLINE],
+        'font-src': [SELF, INLINE],
         'img-src': [SELF, INLINE],
         'worker-src': [NONE],
         'connect-src': [SELF],
@@ -64,7 +64,7 @@ app.get('/*', (req, res) => {
         // Read the file from the filesystem without the query string
         // Add cache poloicy to cache 48h
         res.header('Cache-Control', 'public, max-age=172800');
-        res.send(fs.readFileSync(path.join(__dirname, '..', 'public', filePath)));
+        res.send(fs.readFileSync(path.join(__dirname, '..', 'www-public', filePath)));
     } catch (error) {
         process.log.error(error)
         res.status(404);
