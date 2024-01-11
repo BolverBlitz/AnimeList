@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <title id="IndexTitle">Anime List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/tabler_flags.css">
@@ -87,6 +88,32 @@
 
       .dropdown:hover .dropbtn {
         background-color: #aaa7a7;
+      }
+
+      td {
+        position: relative; /* Ensure the td is positioned relative */
+        /* Other td styles if needed */
+      }
+
+      .tooltip {
+          visibility: hidden;
+          width: 180px;
+          background-color: black;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          opacity: 0.68; /* Adjust for transparency */
+          /* Adjust position */
+          top: 50%;
+          left: calc(100% - 10px); /* Move tooltip to the left by 10px */
+          transform: translate(-60%, -50%); /* Adjust horizontal centering */
+      }
+
+      td:hover .tooltip {
+          visibility: visible;
       }
     </style>
   </head>
@@ -175,7 +202,7 @@
                 anime.language = "us";
               }
               anime.language = `<span class="flag flag-country-${anime.language}"></span>`;
-              tableHTML += `<tr><td>${anime.anime}</td><td>${anime.language}</td><td>${anime.season}</td><td>${anime.episodes}</td><td>${anime.average_rating}/100</td><td>${anime.watch_start}</td><td>${anime.watch_end}</td></tr>`;
+              tableHTML += `<tr><td>${anime.anime}</td><td>${anime.language}</td><td>${anime.season}</td><td>${anime.episodes}</td><td>${anime.average_rating}/100<span class="tooltip">Graphic: ${anime.rating_grafik}<br>Story: ${anime.rating_story}<br>Moral:${anime.rating_values}<br>Characters: ${anime.rating_character}<br>Worldbuilding: ${anime.rating_worldbuilding}</span></td><td>${anime.watch_start}</td><td>${anime.watch_end}</td></tr>`;
               
               total_episodes += anime.episodes;
             });
