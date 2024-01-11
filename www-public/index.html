@@ -92,7 +92,7 @@
   </head>
 
   <body>
-    <h2>Anime List</h2>
+    <h2 id="Headline">Anime List</h2>
 
     <input
       type="text"
@@ -110,6 +110,44 @@
         await loadAnimeList();
       });
 
+      /**
+       * Takes seconds and returns a string with days, hours, minutes and seconds
+       * @param {Number} seconds 
+       * @param {Boolean} noSeconds 
+       * @param {Object} localization
+       * @returns 
+       */
+      const beautifySecondsToFixedString = (seconds, noSeconds = false, localization = { days: "d", hours: "h", minutes: "m", seconds: "s" }) => {
+
+      let days = 0;
+      let hours = 0;
+      let minutes = 0;
+      minutes = Math.floor(seconds / 60);
+      seconds = seconds % 60;
+
+      hours = Math.floor(minutes / 60);
+      minutes = minutes % 60;
+
+      days = Math.floor(hours / 24);
+      hours = hours % 24;
+
+      let result = '';
+      if (days > 0) {
+          result += `${days}${localization.days} `;
+      }
+      if (hours > 0 || days > 0) { // Include hours if there are days
+          result += `${("0" + hours).slice(-2)}${localization.hours} `;
+      }
+      if (minutes > 0 || hours > 0 || days > 0) { // Include minutes if there are hours or days
+          result += `${("0" + minutes).slice(-2)}${localization.minutes}`;
+      }
+      if (!noSeconds && (seconds > 0 || minutes > 0 || hours > 0 || days > 0)) { // Include seconds if there are minutes, hours, or days
+          result += ` ${("0" + seconds).slice(-2)}${localization.seconds}`;
+      }
+
+      return result.trim();
+      }
+
       const loadAnimeList = () => {
         fetch("/api/v1/anime")
           .then((response) => response.json())
@@ -126,6 +164,7 @@
                 <th style="width:10%;">Watch Start</th>
                 <th style="width:10%;">Watch End</th>
               </tr>`;
+              let total_episodes = 0;
             data.forEach((anime) => {
               const watch_start = new Date(anime.watch_start);
               const watch_end = new Date(anime.watch_end);
@@ -137,7 +176,11 @@
               }
               anime.language = `<span class="flag flag-country-${anime.language}"></span>`;
               tableHTML += `<tr><td>${anime.anime}</td><td>${anime.language}</td><td>${anime.season}</td><td>${anime.episodes}</td><td>${anime.average_rating}/100</td><td>${anime.watch_start}</td><td>${anime.watch_end}</td></tr>`;
+              
+              total_episodes += anime.episodes;
             });
+            window.document.title = `${data.length} Animes List (${total_episodes} Episodes) watched`;
+            window.document.getElementById("Headline").innerHTML = `${data.length} Animes List (${total_episodes} Episodes) watched - ${beautifySecondsToFixedString(total_episodes * 60 * 24)} total time`;
             tableHTML += "</table>";
             table.innerHTML = tableHTML;
           });
