@@ -180,7 +180,7 @@
               total_episodes += anime.episodes;
             });
             window.document.title = `${data.length} Animes List (${total_episodes} Episodes) watched`;
-            window.document.getElementById("Headline").innerHTML = `${data.length} Animes List (${total_episodes} Episodes) watched - ${beautifySecondsToFixedString(total_episodes * 60 * 24)} total time`;
+            window.document.getElementById("Headline").innerHTML = `${data.length} Animes List (${total_episodes} Episodes) watched - ${beautifySecondsToFixedString(total_episodes * 60 * 24, true)} total time`;
             tableHTML += "</table>";
             table.innerHTML = tableHTML;
           });
